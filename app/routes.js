@@ -14,7 +14,7 @@ module.exports = function(app, redisClient) {
 					if(err){
 						throw err;
 					}else{
-						redisClient.publish("countchannel",counter_id);
+						redisClient.publish("countchannel",counter_id); 
 					}
 				}
 			);
@@ -31,7 +31,7 @@ module.exports = function(app, redisClient) {
 					}else{
 						console.log(value);
 						res.setHeader('content-type', 'text/plain');
-						res.send(200, value);
+						res.status(200).send(value);
 					}
 				}
 			);

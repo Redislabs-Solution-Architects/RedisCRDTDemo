@@ -3,8 +3,12 @@
 * This program should be used for demo puposes only. The software
 * is provided “as is”, without warranty of any kind.
 *
-* Usage: node server.js <HTTP port> <Redis port>
-* Example: node server.js 3000 6379
+* Usage: 
+*  
+*   export HTTP_PORT=3232; export REDIS_PORT=6379; export REDIS_HOST=localhost; \
+*   export APP_LOCATION="CityA"; \
+*   node server.js  
+*
 */
 
 
@@ -14,20 +18,21 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var redis = require('redis');
 
-var httpPort = process.argv[2] || 3000;
-var redisPort = process.argv[3] || 6379;
-process.env.location = process.argv[4] || "";
+var httpPort = process.env.HTTP_PORT || 3000;
+var redisPort = process.env.REDIS_PORT || 6379;
+var redisHost = process.env.REDIS_HOST || 'localhost';
+appLocation = process.env.APP_LOCATION || "";
 
 // Redis client to query and publish to a channel
 var redisClient = redis.createClient({
   port : redisPort,
-  host : 'localhost'
+  host : redisHost
 });
 
 // Redis client to listen to a channel
 var redisSub = redis.createClient({
   port : redisPort,
-  host : 'localhost'
+  host : redisHost
 });
 
 // Init modules to process get and post parameters
@@ -53,4 +58,5 @@ msglistener.listen(redisSub, redisClient, io);
 // Start the HTTP server
 http.listen(httpPort, function(){
   console.log('HTTP listening on :'+httpPort);
+
 });
