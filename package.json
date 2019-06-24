@@ -1,5 +1,5 @@
 {
-  "name": "SocketDemo",
+  "name": "CRDTDemo",
   "version": "0.0.1",
   "description": "test",
   "main": "server.js",

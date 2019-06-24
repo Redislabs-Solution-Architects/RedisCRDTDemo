@@ -2,12 +2,12 @@
 <!doctype html>
 <html>
 <head>
-    <title>CRDT Demo</title>
+    <title>CRDT <%= appLocation %></title>
     <!-- load bootstrap css -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <style>
-        body        { padding-top:40px; }
+        body        { padding-top:0px; }
     </style>
 
     <!-- load JQuery -->
@@ -22,20 +22,18 @@
 </head>
 <body>
 <div class="container">
-        <h3><%= process.env.location %></h3>
+        <h3><%= appLocation %></h3>
         <div class="row row-divided">
             <div class="col-xs-4 column-one centered">
-              <a href="#" onClick="countClick('count1')"><img style="width: 160px; height: 240px;" src="img/dog1.jpg" alt="Dog1" style="width:100%"></a>
+              <a href="#" onClick="countClick('count1')"><img style="width: 160px; height: 160px;" src="img/dog1.jpg" alt="Dog1" style="width:100%"></a>
             </div>
             <div class="col-xs-4 column-two centered">
-              <a href="#" onClick="countClick('count2')"><img style="width: 160px; height: 240px;" src="img/dog2.jpg" alt="Dog2" style="width:100%"></a>
+              <a href="#" onClick="countClick('count2')"><img id="alderaan" src="img/dog2.jpg" alt="Dog2" style="width:160px; height:160px;"></a>
             </div>
         	  <div class="col-xs-4 column-three centered">
-              <a href="#" onClick="countClick('count3')"><img style="width: 160px; height: 240px;" src="img/dog3.jpg" alt="Dog3" style="width:100%"></a>
+              <a href="#" onClick="countClick('count3')"><img style="width: 160px; height: 160px;" src="img/dog3.jpg" alt="Dog3" style="width:100%"></a>
         	  </div>
         </div>
-        <br>
-        <br>
         <div class="row row-divided">
             <div class="col-xs-4 column-one centered">
               <label id="count1" name="count1">0</label>
@@ -55,6 +53,8 @@ window.onload = function() {
   getCount('count3');
 };
 
+
+
 $(function (){
     var socket = io();
 
@@ -63,7 +63,7 @@ $(function (){
     });
 
     socket.on('count2', function(value){
-      $( "#count2").html( "<strong>" + value + "</strong>" );
+      $("#count2").html( "<strong>" + value + "</strong>");
     });
 
     socket.on('count3', function(value){
