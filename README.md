@@ -11,12 +11,14 @@
 export HTTP_PORT=3000; export REDIS_PORT=12000; export REDIS_HOST=localhost; \
    export APP_LOCATION="Atlanta"; \ 
 node server.js 3000 12000 Atlanta
+
 export HTTP_PORT=3002; export REDIS_PORT=12002; export REDIS_HOST=localhost; \
    export APP_LOCATION="London"; \ 
 node server.js 3002 12002 London
+
 export HTTP_PORT=3004; export REDIS_PORT=12004; export REDIS_HOST=localhost; \
    export APP_LOCATION="London"; \ 
-   node server.js 3004 12004 Rio
+node server.js 3004 12004 Rio
 ```
 
 1. Open the app on three different browsers with the following URLs:
@@ -40,11 +42,11 @@ http://localhost:3004
     docker run -d --name crdtapp3 -p 8082:3000 -e REDIS_HOST=host.docker.internal -e REDIS_PORT=12004 -e APP_LOCATION="Ohio"  redis_crdt_docker
     ```
 4. Launch a web browser windows to 
-  (http:/localhost:8080)
-  (http:/localhost:8081)
-  (http:/localhost:8082)
+  http:/localhost:8080
+  http:/localhost:8081
+  http:/localhost:8082
 
 5. Click on the pictures to increment their counters. Test how the counters work with split and connected networks.
 
-## How to use the app in Kubernetes
-1.
+
+ToDo: Add yaml for Kubernetes
