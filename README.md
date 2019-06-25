@@ -63,6 +63,7 @@ http://localhost:3004
 [http:/localhost:8082](http:/localhost:8082)
 
 5. Click on the pictures to increment their counters. Test how the counters work with split and connected networks. Alderaan (middle) will explode on 42 clicks.
+<img src="public/img/explode.gif " width="120">
 
 
 _ToDo: Add yaml for Kubernetes_
