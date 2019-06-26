@@ -60,4 +60,17 @@ http://localhost:3004
 5. Click on the pictures to increment their counters. Test how the counters work with split and connected networks.
 
 
-_ToDo: Add yaml for Kubernetes_
+## How to launch the app in Kubernetes
+
+1. Create an active/active Redis Enteprise database.
+   
+2. Apply the manifest with the appropriate resources, REDIS_HOST, REDIS_PORT, HTTP_PORT, and APP_LOCATION parameters set. See example crdt_app.yaml
+   ``` kubectl apply -f crdt_app.yaml ```
+
+
+3. Expose service as LoadBalancer
+   ``` to be added ```
+
+4. Lunch a web browser to the appropriate LoadBalancer host/IP address.
+
+5. Click on the pictures to increment their counters. Test how the counters work with split and connected networks using firewall changes.
