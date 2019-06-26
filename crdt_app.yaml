@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: app-servers
+spec:
+  replicas: 1 
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: redis-benchmark
+    spec:
+      #nodeSelector:
+      #cloud.google.com/gke-nodepool: default-pool
+      containers:
+      - name: benchmark
+        image: bjbredis/redis_crdt_deathstar
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: "250Mi"
+          requests:
+            cpu: "0.5"
+            memory: "128Mi"
+        env:
+         - name: REDIS_PORT
+           value: "10098"   # redis port
+         - name: REDIS_HOST
+           value: "testdb"  # can be full hostname or servicename in k8s
+         - name: HTTP_PORT
+           value: "8080"
+         - name: APP_LOCATION
+           value: "Austin, TX"
