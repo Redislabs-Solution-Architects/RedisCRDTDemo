@@ -1,6 +1,4 @@
-# Redis CRDT Demo - _Project Deathstar_
-
-This is the same as the normal Redis CRDT Demo except with Star Wars planets and an exploding Alderaan.
+# Redis CRDT Demo
 
 ## How to use the app
 
@@ -36,9 +34,7 @@ http://localhost:3004
 
 ## How to use the app in Docker
 1. Follow the instructions on https://github.com/redislabsdemo/RedisCRDTDockerScripts to setup a three-node cluster of active-active Redis Enterprise database which are exposed on local machine ports 12000, 12002, 12004.
-   
 2. Build the image: `docker build -t redis_crdt_docker .`
-   
 3. Launch the image appropriate command line arguments: 
     ```
     # first container
@@ -53,7 +49,6 @@ http://localhost:3004
     docker run -d --name crdtapp3 -p 8082:3000 -e REDIS_HOST=host.docker.internal \ 
       -e REDIS_PORT=12004 -e APP_LOCATION="Ohio"  redis_crdt_docker
     ```
-
 4. Launch a web browser windows to 
 
 [http:/localhost:8080](http:/localhost:8080)
@@ -62,8 +57,20 @@ http://localhost:3004
 
 [http:/localhost:8082](http:/localhost:8082)
 
-5. Click on the pictures to increment their counters. Test how the counters work with split and connected networks. Alderaan (middle) will explode on 42 clicks.
-<img src="public/img/explode.gif " width="120">
+5. Click on the pictures to increment their counters. Test how the counters work with split and connected networks.
 
 
-_ToDo: Add yaml for Kubernetes_
+## How to launch the app in Kubernetes
+
+1. Create an active/active Redis Enteprise database.
+   
+2. Apply the manifest with the appropriate resources, REDIS_HOST, REDIS_PORT, HTTP_PORT, and APP_LOCATION parameters set. See example crdt_app.yaml
+   ``` kubectl apply -f crdt_app.yaml ```
+
+
+3. Expose service as LoadBalancer
+   ``` to be added ```
+
+4. Lunch a web browser to the appropriate LoadBalancer host/IP address.
+
+5. Click on the pictures to increment their counters. Test how the counters work with split and connected networks using firewall changes.
