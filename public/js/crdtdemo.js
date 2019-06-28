@@ -26,7 +26,13 @@ function getCount(imageid){
     data: {
       id: imageid},
     success: function( result ) {
+      if (result >= 42 && imageid=="count2") {
+        $("#count2").html( "<strong> Exploded!</strong>");
+        $("#alderaan").attr("src","img/explode.gif");
+      } else {
         $( "#"+imageid).html( "<strong>" + result + "</strong>" );
+      }
+        
     }
   });
 }
