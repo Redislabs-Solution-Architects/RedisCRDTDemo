@@ -23,15 +23,15 @@ var redisPort = process.env.REDIS_PORT || 6379;
 var redisHost = process.env.REDIS_HOST || 'localhost';
 appLocation = process.env.APP_LOCATION || "";
 
-console.log('Redis host :'+REDIS_HOST);
-console.log('Redis port :'+REDIS_PORT);
-console.log('Redis app location :'+APP_LOCATION);
+console.log('Redis host :'+redisHost);
+console.log('Redis port :'+redisPort);
+console.log('Redis app location :'+appLocation);
+
 // Redis client to query and publish to a channel
 var redisClient = redis.createClient({
   port : redisPort,
   host : redisHost
 });
-
 
 
 // Redis client to listen to a channel
