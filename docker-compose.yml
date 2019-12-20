@@ -1,0 +1,149 @@
+version: '3'
+
+services:
+  rp1:
+    image: redislabs/redis:latest
+    restart: always
+    container_name: rp1
+    hostname: rp1
+    cap_add:
+      - ALL
+    ulimits:
+      memlock: -1
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '12000:12000'
+      - '8443:8443'
+      - '9443:9443'
+    volumes:
+      - redispersRP1:/var/opt/redislabs/persist
+      - redislogsRP1:/var/opt/redislabs
+    networks:
+      network1:
+         ipv4_address: 172.18.0.2
+
+  rp2:
+    image: redislabs/redis:latest
+    restart: always
+    container_name: rp2
+    hostname: rp2
+    cap_add:
+      - ALL
+    ulimits:
+      memlock: -1
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '12002:12000'
+      - '8445:8443'
+      - '9445:9443'
+    volumes:
+      - redispersRP2:/var/opt/redislabs/persist
+      - redislogsRP2:/var/opt/redislabs
+    networks:
+      network2:
+         ipv4_address: 172.19.0.2
+
+  rp3:
+    image: redislabs/redis:latest
+    restart: always
+    container_name: rp3
+    hostname: rp3
+    cap_add:
+      - ALL
+    ulimits:
+      memlock: -1
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '12004:12000'
+      - '8447:8443'
+      - '9447:9443'
+    volumes:
+      - redispersRP3:/var/opt/redislabs/persist
+      - redislogsRP3:/var/opt/redislabs
+    networks:
+      network3:
+         ipv4_address: 172.20.0.2
+
+  crdtapp1:
+    build: .
+    image: redis_crdt_docker
+    restart: always
+    container_name: crdtapp1
+    hostname: crdtapp1
+    environment:
+      - REDIS_HOST=rp1
+      - REDIS_PORT=12000
+      - APP_LOCATION="California"
+    ports:
+      - '8080:3000'
+    depends_on:
+      - rp1
+    networks:
+      network1:
+
+  crdtapp2:
+    build: .
+    image: redis_crdt_docker
+    restart: always
+    container_name: crdtapp2
+    hostname: crdtapp2
+    environment:
+      - REDIS_HOST=rp2
+      - REDIS_PORT=12000
+      - APP_LOCATION="Oregon"
+    ports:
+      - '8081:3000'
+    depends_on:
+      - rp2
+    networks:
+      network2:
+
+  crdtapp3:
+    build: .
+    image: redis_crdt_docker
+    restart: always
+    container_name: crdtapp3
+    hostname: crdtapp3
+    environment:
+      - REDIS_HOST=rp3
+      - REDIS_PORT=12000
+      - APP_LOCATION="Ohio"
+    ports:
+      - '8082:3000'
+    depends_on:
+      - rp3
+    networks:
+      network3:
+
+volumes:
+  redispersRP1:
+  redispersRP2:
+  redispersRP3:
+  redislogsRP1:
+  redislogsRP2:
+  redislogsRP3:
+networks:
+  network1:
+     ipam:
+         driver: default
+         config:
+             - subnet: 172.18.0.0/16
+  network2:
+     ipam:
+         driver: default
+         config:
+             - subnet: 172.19.0.0/16
+  network3:
+     ipam:
+         driver: default
+         config:
+             - subnet: 172.20.0.0/16

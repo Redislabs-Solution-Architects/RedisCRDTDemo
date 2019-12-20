@@ -1,0 +1,6 @@
+docker volume rm rediscrdtdemo_redispersRP1
+docker volume rm rediscrdtdemo_redispersRP2
+docker volume rm rediscrdtdemo_redispersRP3
+docker volume rm rediscrdtdemo_redislogsRP1
+docker volume rm rediscrdtdemo_redislogsRP2
+docker volume rm rediscrdtdemo_redislogsRP3
