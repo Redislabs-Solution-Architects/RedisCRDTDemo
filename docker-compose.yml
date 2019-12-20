@@ -89,7 +89,6 @@ services:
       - rp1
     networks:
       network1:
-         ipv4_address: 172.18.0.3
 
   crdtapp2:
     build: .
@@ -107,7 +106,6 @@ services:
       - rp2
     networks:
       network2:
-         ipv4_address: 172.19.0.3
 
   crdtapp3:
     build: .
@@ -125,7 +123,6 @@ services:
       - rp3
     networks:
       network3:
-         ipv4_address: 172.20.0.3
 
 volumes:
   redispersRP1:
