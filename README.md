@@ -2,7 +2,7 @@
 
 ## How to use the app
 
-## old way (has some issues)
+## Using the app locally
 1. Follow the instructions on https://github.com/redislabsdemo/RedisCRDTDockerScripts to setup a three-node cluster of active-active Redis Enterprise database.
 
 2. Run `npm install` to install all the node modules required for this application.
